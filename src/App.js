@@ -1,13 +1,31 @@
 import React, { Component } from 'react';
-import './css/bootstrap.min.css';
 import './css/index.css';
 
-class App extends Component {
+import DayWeather from './component/DayWeather';
+
+const todayDate = new Date();
+
+class App extends React.Component {
+
+  state = {
+    lowTemp : undefined,
+    highTemp : undefined,
+    date : todayDate,
+    weather : 0
+  }
+
+  /*
+    Weather Index -
+    sun : 0   cloudSun : 1  cloud : 2
+    rain : 3  storm : 4
+  */
+
   render() {
     return (
-      <div className="row">>
-        <div className="col-6">
-          <DayWeather />
+      <div>
+        <div>
+          <DayWeather date={this.state.date}
+          weather={this.state.weather}/>
         </div>
       </div>
     );
