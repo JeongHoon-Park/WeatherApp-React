@@ -1,9 +1,17 @@
 .Card{
-    width : 120px;
-    height : 160px;
-  
+  width : 180px;
+  height : 240px;
+  border : 1px solid gray;
   }
-  
-  .Date{
-    color : rgb(130, 130, 130);
-  }
+
+.Date{
+  color : rgb(130, 130, 130);
+}
+
+.HighTemp{
+  color : rgb(60, 60, 60);
+}
+
+.LowTemp{
+  color : rgb(110, 110, 110);
+}

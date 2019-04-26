@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './css/index.css';
+import './css/bootstrap.min.css';
 
 import DayWeather from './component/DayWeather';
 
@@ -8,10 +9,10 @@ const todayDate = new Date();
 class App extends React.Component {
 
   state = {
-    lowTemp : undefined,
-    highTemp : undefined,
+    lowTemp : 12,
+    highTemp : 18,
     date : todayDate,
-    weather : 0
+    weather : 1
   }
 
   /*
@@ -23,10 +24,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <div>
-          <DayWeather date={this.state.date}
-          weather={this.state.weather}/>
-        </div>
+        <DayWeather date={this.state.date} weather={this.state.weather} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp}/>
       </div>
     );
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 
 const SVG = ({
-    name = 'sun',
+    name = 'Rain',
     width = '100%',
     height = '100%',
     style = {},
