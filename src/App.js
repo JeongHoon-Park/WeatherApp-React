@@ -11,8 +11,8 @@ class App extends React.Component {
   state = {
     lowTemp : 12,
     highTemp : 18,
-    date : todayDate,
-    weather : 1
+    day : todayDate.getDay(),
+    weather : 0
   }
 
   /*
@@ -23,8 +23,12 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <DayWeather date={this.state.date} weather={this.state.weather} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp}/>
+      <div className="d-flex flex-row">
+        <DayWeather date={this.state.day} weather={this.state.weather}/>
+        <DayWeather date={(this.state.day+1)%7} weather={this.state.weather+1} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp}/>
+        <DayWeather date={(this.state.day+1)%7} weather={this.state.weather+2} />
+        <DayWeather date={(this.state.day+2)%7} weather={this.state.weather+3} />
+        <DayWeather date={(this.state.day+3)%7} weather={this.state.weather+4} />
       </div>
     );
   }

@@ -2,8 +2,8 @@ import React from 'react';
 
 const SVG = ({
     name = 'sun',
-    width = '100%',
-    height = '100%',
+    width = "140px",//'100%',
+    height = "140px",//'100%',
     style = {},
     //fill = '#000',
     className = '',

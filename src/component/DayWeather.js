@@ -8,7 +8,7 @@ const DayWeather = (props) => {
 //property로 부터 날짜 및 날씨 정보를 받음
     return(
         <div className = "Card">
-            <StringDay day={props.date.getDay()} />
+            <StringDay day={props.date}/>
             <WeatherImage weather={props.weather} />
             <Temperature lowTemp={props.lowTemp} highTemp={props.highTemp} />
         </div>
