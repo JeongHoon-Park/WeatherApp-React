@@ -32,7 +32,7 @@ const StringDay = (props) => {
     }
 
     return(
-        <h4 className="Date my-2 text-center">{stringDay}</h4>
+        <h5 className="Date my-1 text-center">{stringDay}</h5>
     )
 }
 

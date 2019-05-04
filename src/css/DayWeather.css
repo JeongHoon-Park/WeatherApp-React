@@ -1,6 +1,6 @@
 .Card{
-  width : 180px;
-  height : 240px;
+  width : 100px;
+  height : 150px;
   border : 1px solid gray;
   }
 
@@ -10,8 +10,10 @@
 
 .HighTemp{
   color : rgb(60, 60, 60);
+  font-size : 1em;
 }
 
 .LowTemp{
   color : rgb(130, 130, 130);
+  font-size : 1em;
 }

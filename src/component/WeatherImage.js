@@ -16,27 +16,27 @@ const WeatherImage = (props) => {
 
     switch(weather){
         case 0:
-            image = <IconSun width="140" height="140"/>
+            image = <IconSun width="90" height="90"/>
             break;
         case 1:
-            image = <CloudSun width="140" height="140"/>
+            image = <CloudSun width="90" height="90"/>
             break;
         case 2:
-            image = <Cloud width="140" height="140"/>
+            image = <Cloud width="90" height="90"/>
             break;
         case 3:
-            image = <Rain width="140" height="140"/>
+            image = <Rain width="90" height="90"/>
             break;
         case 4:
-            image = <Storm width="140" height="140"/>
+            image = <Storm width="90" height="90"/>
             break;
         default :
             image = 'Not registered';
     }
 
     return(
-        <div className="d-flex flex-row justify-content-center">
-            <button className="btn p-0 Button mb-2">
+        <div className="d-flex flex-row justify-content-center mb-1">
+            <button className="btn p-0 Button">
                 {image}
             </button>         
         </div>

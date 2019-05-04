@@ -26,9 +26,12 @@ class App extends React.Component {
       <div className="d-flex flex-row">
         <DayWeather date={this.state.day} weather={this.state.weather}/>
         <DayWeather date={(this.state.day+1)%7} weather={this.state.weather+1} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp}/>
-        <DayWeather date={(this.state.day+1)%7} weather={this.state.weather+2} />
-        <DayWeather date={(this.state.day+2)%7} weather={this.state.weather+3} />
-        <DayWeather date={(this.state.day+3)%7} weather={this.state.weather+4} />
+        <DayWeather date={(this.state.day+2)%7} weather={this.state.weather+2} />
+        <DayWeather date={(this.state.day+3)%7} weather={this.state.weather+3} />
+        <DayWeather date={(this.state.day+4)%7} weather={this.state.weather+4} />
+        <DayWeather date={(this.state.day+5)%7} weather={this.state.weather} />
+        <DayWeather date={(this.state.day+6)%7} weather={this.state.weather+1} />
+        <DayWeather date={(this.state.day+7)%7} weather={this.state.weather+2} />
       </div>
     );
   }
