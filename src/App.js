@@ -4,6 +4,7 @@ import './css/bootstrap.min.css';
 
 import DayWeather from './component/DayWeather';
 import RenderInf from './component/RenderInf.js';
+import Graph from './component/Graph.js';
 
 const todayDate = new Date();
 
@@ -31,7 +32,7 @@ class App extends React.Component {
     return (
       <div className="Weather">
         <RenderInf day={this.state.day} loc={this.state.loc}/>
-
+        <Graph />
         <div className="d-flex flex-row mb-3">
           <DayWeather date={this.state.day} weather={this.state.weather}/>
           <DayWeather date={(this.state.day+1)%7} weather={this.state.weather+1} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp}/>
