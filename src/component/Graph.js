@@ -10,45 +10,56 @@ const CHART_DATA = {
     type : "line"
 };
 
+const SIZE = {
+    height : 200,
+    width : 750
+};
+
+const AXIS = {
+    x : {
+        type : "category",
+        categories : [
+            "PM 3",
+            "PM 6",
+            "PM 9",
+            "AM 0",
+            "AM 3",
+            "AM 6",
+            "AM 9",
+            "PM 12",
+            "PM 3"
+        ]
+    },
+
+    y:{
+        show : false
+    }
+};
+
+const COLOR = {
+    pattern : ["#ff0000"],
+    onover : "#bb1111",
+};
+
+const LEGEND = {
+    show : false
+};
+
 export default class LineChart extends React.Component{
     render(){
         return(
-            <BillboardChart data={CHART_DATA}></BillboardChart>
+            <BillboardChart
+                data={CHART_DATA} size={SIZE} axis={AXIS} color={COLOR} legend={LEGEND}
+                className="my-3 justify-content-center"    
+            >
+            </BillboardChart>
         )
     }
 }
 /*
     let chart = Billboard.generate({
         bindto : "#bind",
-
-        size : {
-            height : 250,
-            width : 800
-        },
-
-        data: {
-            type : "line",
-            columns : [
-                ["temperature", 24, 23, 19, 17, 15, 14, 15, 21, 24]
-            ]
-        },
         
-        axis : {
-            x : {
-                type : "category",
-                categories : [
-                    "PM 3시",
-                    "PM 6시",
-                    "PM 9시",
-                    "AM 0시",
-                    "AM 3시",
-                    "AM 6시",
-                    "AM 9시",
-                    "PM 12시",
-                    "PM 3시"
-                ]
-            }
-        },
         area : {
             above : false
         },
