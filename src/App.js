@@ -11,10 +11,15 @@ const todayDate = new Date();
 class App extends React.Component {
 
   state = {
-    lowTemp: 12,
-    highTemp: 18,
+    briefWeather : {
+      lowTemp : 12,
+      highTemp : 18,
+      icon : 0
+    },
+    fullWeather : {
+
+    },
     day: todayDate.getDay(),
-    weather: 0,
     loc: {
       city: 'Busan',
       gu: 'Buk',
@@ -32,16 +37,16 @@ render() {
   return (
     <div className="Weather">
       <RenderInf day={this.state.day} loc={this.state.loc} />
-      <Graph />
+      <Graph weather={this.state.fullWeather}/>
       <div className="d-flex flex-row mb-3">
-        <DayWeather date={this.state.day} weather={this.state.weather} />
-        <DayWeather date={(this.state.day + 1) % 7} weather={this.state.weather + 1} lowTemp={this.state.lowTemp} highTemp={this.state.highTemp} />
-        <DayWeather date={(this.state.day + 2) % 7} weather={this.state.weather + 2} />
-        <DayWeather date={(this.state.day + 3) % 7} weather={this.state.weather + 3} />
-        <DayWeather date={(this.state.day + 4) % 7} weather={this.state.weather + 4} />
-        <DayWeather date={(this.state.day + 5) % 7} weather={this.state.weather} />
-        <DayWeather date={(this.state.day + 6) % 7} weather={this.state.weather + 1} />
-        <DayWeather date={(this.state.day + 7) % 7} weather={this.state.weather + 2} />
+        <DayWeather date={this.state.day} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 1) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 2) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 3) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 4) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 5) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 6) % 7} weather={this.state.briefWeather} />
+        <DayWeather date={(this.state.day + 7) % 7} weather={this.state.briefWeather} />
       </div>
 
     </div>
