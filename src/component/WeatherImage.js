@@ -11,7 +11,7 @@ const WeatherImage = (props) => {
 
     let image = undefined;
 
-    switch(props.weather.icon){
+    switch(props.weather){
         case 0:
             image = <IconSun width="90" height="90"/>
             break;
