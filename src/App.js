@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './css/index.css';
 import './css/bootstrap.min.css';
 
@@ -14,11 +14,6 @@ class App extends React.Component {
     super(props);
 
     this.state= {
-      briefWeather : {
-        lowTemp : 12,
-        highTemp : 18,
-        icon : 0
-      },
       fullWeather : {
         temp : ["temp", 23, 22, 21, 21, 20, 19, 18, 21, 24],
         rainProb : ["rainProb", 24, 98, 97, 92, 67, 34, 9, 8]
@@ -35,13 +30,12 @@ class App extends React.Component {
   }
 
   dateSwitch(){
-    console.log("State Change");
-    this.setState(()=>({
-    fullWeather : {
-        temp : ["temperature", 27, 25, 24, 23, 19, 16, 15, 18],
-        rainProb : ["rainProb", 10, 10, 8, 15, 16, 13, 14, 10, 12]
-    }
-    }));
+    this.setState({
+      fullWeather : {
+          temp : ["temp", 27, 25, 24, 23, 19, 16, 15, 18],
+          rainProb : ["rainProb", 10, 10, 8, 15, 16, 13, 14, 10, 12]
+      }
+    });
   }
   /*
     Weather Index -
@@ -49,6 +43,7 @@ class App extends React.Component {
     rain : 3  storm : 4
   */
   render() {
+    console.log("APP Render"+this.state.fullWeather.temp);
     return (
       <div className="Weather">
         <RenderInf day={this.state.today} loc={this.state.loc} />

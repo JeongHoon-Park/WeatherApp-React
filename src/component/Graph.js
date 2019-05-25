@@ -50,8 +50,23 @@ export default class LineChart extends React.Component{
         }
     }
     // 이 부분 프로퍼티 받아서 바로 처리해버리
+    
+    componentDidUpdate(prevProps){
+        if(this.props.weather !== prevProps.weather){
+            this.setState({
+                CHART_DATA : {
+                    columns : 
+                    [
+                        this.props.weather.temp
+                    ],
+                    type: "line"
+                }
+            });
+        }
+    }
 
     render(){
+        console.log("Graph Render"+this.state.CHART_DATA.columns);
         return(
             <BillboardChart
                 data={this.state.CHART_DATA}

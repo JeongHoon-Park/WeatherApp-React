@@ -23,14 +23,14 @@ export default class DayWeather extends React.Component{
 
     render(){
         return(
-            <div>
+            <>
             <StringDay day={this.state.today}/>
             <WeatherImage weather={this.state.briefWeather.icon} />
             <Temperature
                 lowTemp={this.state.briefWeather.lowTemp}
                 highTemp={this.state.briefWeather.highTemp}
             />                
-            </div>
+            </>
 
             //날씨 카드 한 장 rendering
         )
