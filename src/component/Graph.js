@@ -66,7 +66,6 @@ export default class LineChart extends React.Component{
     }
 
     render(){
-        console.log("Graph Render"+this.state.CHART_DATA.columns);
         return(
             <BillboardChart
                 data={this.state.CHART_DATA}

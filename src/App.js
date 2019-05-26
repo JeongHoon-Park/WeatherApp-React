@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import './css/index.css';
 import './css/bootstrap.min.css';
 
@@ -7,6 +8,8 @@ import RenderInf from './component/RenderInf.js';
 import Graph from './component/Graph.js';
 
 const todayDate = new Date();
+const WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json";
+//이 주소로 json 데이터 요청함
 
 class App extends React.Component {
 
@@ -23,16 +26,26 @@ class App extends React.Component {
         city: 'Busan',
         gu: 'Buk',
         dong: 'Deokcheon'
-      } 
+      },
+      isLoaded : false,
+      weather: [],
+      error: null
     }
     
     this.dateSwitch = this.dateSwitch.bind(this);
   }
 
+  async componentDidMount(){
+    let { data : weather} = await axios.get(WeatherEndPoint);
+    this.setState({
+      weather
+    })
+  }
+
   dateSwitch(){
     this.setState({
       fullWeather : {
-          temp : ["temp", 27, 25, 24, 23, 19, 16, 15, 18],
+          temp : ["temp", 27, 25, 24, 23, 19, 16, 15, 18, 20],
           rainProb : ["rainProb", 10, 10, 8, 15, 16, 13, 14, 10, 12]
       }
     });
@@ -43,7 +56,7 @@ class App extends React.Component {
     rain : 3  storm : 4
   */
   render() {
-    console.log("APP Render"+this.state.fullWeather.temp);
+    console.log("APP Render"+this.state.weather);
     return (
       <div className="Weather">
         <RenderInf day={this.state.today} loc={this.state.loc} />

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "billboard.js": "^1.8.0",
+    "axios": "^0.18.0",
     "cross-env": "^5.2.0",
     "react": "^16.8.6",
     "react-billboardjs": "^1.5.2",
