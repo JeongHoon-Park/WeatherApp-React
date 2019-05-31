@@ -8,7 +8,7 @@ import RenderInf from './component/RenderInf.js';
 import Graph from './component/Graph.js';
 
 const todayDate = new Date();
-const WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json";
+const WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json&units=metric";
 //이 주소로 json 데이터 요청함
 
 class App extends React.Component {
@@ -17,10 +17,6 @@ class App extends React.Component {
     super(props);
 
     this.state= {
-      fullWeather : {
-        temp : ["temp", 23, 22, 21, 21, 20, 19, 18, 21, 24],
-        rainProb : ["rainProb", 24, 98, 97, 92, 67, 34, 9, 8]
-      },
       today: todayDate.getDay(),
       loc: {
         city: 'Busan',
@@ -28,7 +24,7 @@ class App extends React.Component {
         dong: 'Deokcheon'
       },
       isLoaded : false,
-      weather: [],
+      OrgWeatherGraph: '',
       error: null
     }
     
@@ -36,18 +32,29 @@ class App extends React.Component {
   }
 
   async componentDidMount(){
-    let { data : weather} = await axios.get(WeatherEndPoint);
+
+    const GetWeather  = await axios.get(WeatherEndPoint);
+
+    console.log(GetWeather);
+
+    let interimArr = []
+    for(let i=0; i<8; i++){
+      interimArr.push(
+        {
+          temperature : GetWeather.data.list[i].main.temp,
+          time : GetWeather.data.list[i].dt_txt
+        }
+      )
+    }
+
     this.setState({
-      weather
+      OrgWeatherGraph : interimArr
     })
   }
 
   dateSwitch(){
     this.setState({
-      fullWeather : {
-          temp : ["temp", 27, 25, 24, 23, 19, 16, 15, 18, 20],
-          rainProb : ["rainProb", 10, 10, 8, 15, 16, 13, 14, 10, 12]
-      }
+      
     });
   }
   /*
@@ -56,11 +63,10 @@ class App extends React.Component {
     rain : 3  storm : 4
   */
   render() {
-    console.log("APP Render"+this.state.weather);
     return (
       <div className="Weather">
         <RenderInf day={this.state.today} loc={this.state.loc} />
-        <Graph weather={this.state.fullWeather} date={this.state.graphDay}/>
+        <Graph weather={this.state.OrgWeatherGraph} date={this.state.graphDay}/>
         <div className="d-flex flex-row mb-3">
           <button className="btn Card p-0" onClick={this.dateSwitch}>
             <DayWeather date={this.state.today} />

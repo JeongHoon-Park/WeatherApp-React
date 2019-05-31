@@ -5,11 +5,17 @@ import "react-billboardjs/lib/billboard.css";
 export default class LineChart extends React.Component{
     constructor(props){
         super(props);
+
         this.state ={
+
+            REFINED_Weather : [
+
+            ],
+
             CHART_DATA : {
                 columns : 
                 [
-                    props.weather.temp,
+                
                 ],
                 type : "line"
             },
@@ -53,11 +59,23 @@ export default class LineChart extends React.Component{
     
     componentDidUpdate(prevProps){
         if(this.props.weather !== prevProps.weather){
+            
+            let tempArr = [
+                this.props.weather[0].temperature,
+                this.props.weather[1].temperature,
+                this.props.weather[2].temperature,
+                this.props.weather[3].temperature,
+                this.props.weather[4].temperature,
+                this.props.weather[5].temperature,
+                this.props.weather[6].temperature,
+                this.props.weather[7].temperature,
+            ]
+
             this.setState({
                 CHART_DATA : {
                     columns : 
                     [
-                        this.props.weather.temp
+                        tempArr
                     ],
                     type: "line"
                 }
