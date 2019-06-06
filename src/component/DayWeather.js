@@ -11,26 +11,32 @@ export default class DayWeather extends React.Component{
 
         this.state={
             today : props.date,
-
+            weatherIndex : props.add,
             briefWeather : {
                 lowTemp : 12,
                 highTemp : 18,
                 icon : 0
             }
         }
-        //this.dateSwitch = this.dateSwitch.bind(this);
+    
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    //lifting state up 한번 꼬아서 메서드 넘겨주기  
+    handleChange(){
+        this.props.lifting(this.props.add);
     }
 
     render(){
         return(
-            <>
-            <StringDay day={this.state.today}/>
-            <WeatherImage weather={this.state.briefWeather.icon} />
-            <Temperature
-                lowTemp={this.state.briefWeather.lowTemp}
-                highTemp={this.state.briefWeather.highTemp}
-            />                
-            </>
+            <button className="btn Card p-0" onClick={()=>{this.handleChange()}}>
+                <StringDay day={this.state.today}/>
+                <WeatherImage weather={this.state.briefWeather.icon} />
+                <Temperature
+                    lowTemp={this.state.briefWeather.lowTemp}
+                    highTemp={this.state.briefWeather.highTemp}
+                />                
+            </button>
 
             //날씨 카드 한 장 rendering
         )

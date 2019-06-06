@@ -25,20 +25,19 @@ class App extends React.Component {
       },
       isLoaded : false,
       OrgWeatherGraph: '',
-      error: null
+      error: null,
+      weatherIndex : 0
     }
     
-    this.dateSwitch = this.dateSwitch.bind(this);
+    this.weatherIndexUpdate = this.weatherIndexUpdate.bind(this);
   }
 
   async componentDidMount(){
-
     const GetWeather  = await axios.get(WeatherEndPoint);
 
-    console.log(GetWeather);
-
+    console.log("Component Did Mount");
     let interimArr = []
-    for(let i=0; i<8; i++){
+    for(let i=this.state.weatherIndex*8; i<(this.state.weatherIndex+1)*8; i++){
       interimArr.push(
         {
           temperature : GetWeather.data.list[i].main.temp,
@@ -46,17 +45,34 @@ class App extends React.Component {
         }
       )
     }
-
     this.setState({
       OrgWeatherGraph : interimArr
     })
   }
 
-  dateSwitch(){
-    this.setState({
-      
-    });
-  }
+    async weatherIndexUpdate(value){
+
+      const GetWeather = await axios.get(WeatherEndPoint);
+      let interimArr = [];
+
+      console.log("WeatherIndexUpdate"+GetWeather.data);
+      for(let i=this.state.weatherIndex*8; i<(this.state.weatherIndex+1)*8; i++){
+        interimArr.push({
+          temperature : GetWeather.data.list[i].main.temp,
+          time : GetWeather.data.list[i].dt_txt
+        })
+      }
+
+      for(let i=0; i<8; i++){
+        console.log("InterimArray"+interimArr[i].temperature);
+      }
+
+      this.setState({
+        weatherIndex : value,
+        OrgWeatherGraph : interimArr
+      })
+    }
+
   /*
     Weather Index -
     sun : 0   cloudSun : 1  cloud : 2
@@ -68,30 +84,11 @@ class App extends React.Component {
         <RenderInf day={this.state.today} loc={this.state.loc} />
         <Graph weather={this.state.OrgWeatherGraph} date={this.state.graphDay}/>
         <div className="d-flex flex-row mb-3">
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={this.state.today} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 1) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 2) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 3) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 4) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 5) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 6) % 7} />
-          </button>
-          <button className="btn Card p-0" onClick={this.dateSwitch}>
-            <DayWeather date={(this.state.today + 7) % 7} />         
-          </button>
+          <DayWeather date={this.state.today} add={0} lifting={this.weatherIndexUpdate}/>
+          <DayWeather date={(this.state.today + 1) % 7} add={1} lifting={this.weatherIndexUpdate}/>
+          <DayWeather date={(this.state.today + 2) % 7} add={2} lifting={this.weatherIndexUpdate}/>
+          <DayWeather date={(this.state.today + 3) % 7} add={3} lifting={this.weatherIndexUpdate}/>
+          <DayWeather date={(this.state.today + 4) % 7} add={4} lifting={this.weatherIndexUpdate}/>
         </div>
       </div>
 
