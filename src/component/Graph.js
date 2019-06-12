@@ -29,8 +29,14 @@ export default class LineChart extends React.Component{
                 x : {
                     type : "category",
                     categories : [
-                       "random",
-                       "parameter"
+                       "15:00H",
+                       "18:00H",
+                       "21:00H",
+                       "00:00H",
+                       "03:00H",
+                       "06:00H",
+                       "09:00H",
+                       "12:00H",
                     ]
                 },
                 y:{
@@ -52,7 +58,7 @@ export default class LineChart extends React.Component{
     
     componentDidUpdate(prevProps){
         if(this.props.weather !== prevProps.weather){
-            
+            console.log("Graph Comonent Update");
             //그래프에 들어갈 온도 배열
             let tempArr = [
                 "temperature",
@@ -78,8 +84,7 @@ export default class LineChart extends React.Component{
                 (parseInt(this.props.weather[7].time.substring(11, 13))+9)%24
             ];
 
-            console.log(typeof(timeSortArr[0].toString()));
-
+            
             this.setState({
                 CHART_DATA : {
                     columns : 
@@ -92,14 +97,14 @@ export default class LineChart extends React.Component{
                     x: {
                         type: "category",
                         categories : [   
-                            `${timeSortArr[0].toString()}H`,
-                            `${timeSortArr[1].toString()}H`,
-                            `${timeSortArr[2].toString()}H`,
-                            `${timeSortArr[3].toString()}H`,
-                            `${timeSortArr[4].toString()}H`,
-                            `${timeSortArr[5].toString()}H`,
-                            `${timeSortArr[6].toString()}H`,
-                            `${timeSortArr[7].toString()}H`,
+                            `${timeSortArr[0].toString()}:00H`,
+                            `${timeSortArr[1].toString()}:00H`,
+                            `${timeSortArr[2].toString()}:00H`,
+                            `${timeSortArr[3].toString()}:00H`,
+                            `${timeSortArr[4].toString()}:00H`,
+                            `${timeSortArr[5].toString()}:00H`,
+                            `${timeSortArr[6].toString()}:00H`,
+                            `${timeSortArr[7].toString()}:00H`,
                         ]
                     }
                 } 
@@ -108,6 +113,7 @@ export default class LineChart extends React.Component{
     }
 
     render(){
+        console.log("Graph Rendering"+this.state.AXIS);
         return(
             <BillboardChart
                 data={this.state.CHART_DATA}

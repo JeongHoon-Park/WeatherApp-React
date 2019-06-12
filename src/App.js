@@ -25,28 +25,41 @@ class App extends React.Component {
       },
       isLoaded : false,
       OrgWeatherGraph: '',
-      error: null,
+      WeatherIcon : '',
       weatherIndex : 0
+      //lifting 에 사용되는 핵심 state
     }
     
     this.weatherIndexUpdate = this.weatherIndexUpdate.bind(this);
   }
 
   async componentDidMount(){
-    const GetWeather  = await axios.get(WeatherEndPoint);
 
     console.log("Component Did Mount");
+    const GetWeather  = await axios.get(WeatherEndPoint);
+
     let interimArr = []
+    let iconArr = []
+
     for(let i=this.state.weatherIndex*8; i<(this.state.weatherIndex+1)*8; i++){
       interimArr.push(
         {
           temperature : GetWeather.data.list[i].main.temp,
-          time : GetWeather.data.list[i].dt_txt
+          time : GetWeather.data.list[i].dt_txt,
+          //icon : GetWeather.data.list[i].weather.id
         }
       )
     }
+
+    for (let i=0; i<40; i++){
+      iconArr.push({
+        icon : GetWeather.data.list[i].weather[0].id
+      })
+    }
+ 
     this.setState({
-      OrgWeatherGraph : interimArr
+      OrgWeatherGraph : interimArr,
+      WeatherIcon : iconArr
     })
   }
 
@@ -55,16 +68,11 @@ class App extends React.Component {
       const GetWeather = await axios.get(WeatherEndPoint);
       let interimArr = [];
 
-      console.log("WeatherIndexUpdate"+GetWeather.data);
       for(let i=this.state.weatherIndex*8; i<(this.state.weatherIndex+1)*8; i++){
         interimArr.push({
           temperature : GetWeather.data.list[i].main.temp,
           time : GetWeather.data.list[i].dt_txt
         })
-      }
-
-      for(let i=0; i<8; i++){
-        console.log("InterimArray"+interimArr[i].temperature);
       }
 
       this.setState({
@@ -81,14 +89,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="Weather">
-        <RenderInf day={this.state.today} loc={this.state.loc} />
+        <RenderInf day={(this.state.today+this.state.weatherIndex)%7} loc={this.state.loc} />
         <Graph weather={this.state.OrgWeatherGraph} date={this.state.graphDay}/>
         <div className="d-flex flex-row mb-3">
-          <DayWeather date={this.state.today} add={0} lifting={this.weatherIndexUpdate}/>
-          <DayWeather date={(this.state.today + 1) % 7} add={1} lifting={this.weatherIndexUpdate}/>
-          <DayWeather date={(this.state.today + 2) % 7} add={2} lifting={this.weatherIndexUpdate}/>
-          <DayWeather date={(this.state.today + 3) % 7} add={3} lifting={this.weatherIndexUpdate}/>
-          <DayWeather date={(this.state.today + 4) % 7} add={4} lifting={this.weatherIndexUpdate}/>
+          <DayWeather date={this.state.today} add={0} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
+          <DayWeather date={(this.state.today + 1) % 7} add={1} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
+          <DayWeather date={(this.state.today + 2) % 7} add={2} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
+          <DayWeather date={(this.state.today + 3) % 7} add={3} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
+          <DayWeather date={(this.state.today + 4) % 7} add={4} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
         </div>
       </div>
 

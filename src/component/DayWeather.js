@@ -8,7 +8,7 @@ export default class DayWeather extends React.Component{
 
     constructor(props){
         super(props);
-
+        
         this.state={
             today : props.date,
             weatherIndex : props.add,
@@ -22,6 +22,34 @@ export default class DayWeather extends React.Component{
         this.handleChange = this.handleChange.bind(this);
     }
 
+    componentDidUpdate(prevProps){
+        if(prevProps.iconArr!== this.props.iconArr){
+            
+            let icon = this.props.iconArr[(this.props.add*8)+3].icon;
+            
+            if(icon<300){
+                icon = 4;
+            }
+            else if(icon <700){
+                icon = 3;
+            }
+            else if(icon >801){
+                icon = 2;
+            }
+            else if(icon === 801){
+                icon =1;
+            }
+            else{
+                icon = 0;
+            }
+            
+            this.setState({
+                briefWeather : {
+                    icon : icon
+                }
+            })
+        }
+    }
     //lifting state up 한번 꼬아서 메서드 넘겨주기  
     handleChange(){
         this.props.lifting(this.props.add);
