@@ -32,7 +32,7 @@ const WeatherImage = (props) => {
     }
 
     return(
-        <div className="d-flex flex-row justify-content-center mb-1 WeatherImage">
+        <div className="d-flex flex-row align-items-center mb-1 mx-auto WeatherImage">
             {image}      
         </div>
 
