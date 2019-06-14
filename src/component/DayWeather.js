@@ -18,15 +18,18 @@ export default class DayWeather extends React.Component{
                 icon : 0
             }
         }
-    
+        
+        console.log("type of today"+typeof(props.date));
         this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidUpdate(prevProps){
         if(prevProps.iconArr!== this.props.iconArr){
             
-            let icon = this.props.iconArr[(this.props.add*8)+3].icon;
-            
+            let icon = this.props.iconArr[(this.props.add*8)].icon;
+            let interimLow = 50;
+            let interimHigh = 0;
+
             if(icon<300){
                 icon = 4;
             }
@@ -43,9 +46,25 @@ export default class DayWeather extends React.Component{
                 icon = 0;
             }
             
+           
+            for(let i =0; i<40; i++){
+                if((this.state.today.getDate()+this.state.weatherIndex) === Number(this.props.iconArr[i].time.slice(8, 10))){
+                    if(interimLow > this.props.iconArr[i].briefTemp.temp_min)
+                        interimLow = this.props.iconArr[i].briefTemp.temp_min;
+                    
+                    if(interimHigh < this.props.iconArr[i].briefTemp.temp_max)
+                        interimHigh = this.props.iconArr[i].briefTemp.temp_max;
+                }
+            }
+            
+            interimLow = Math.round(interimLow*10)/10;
+            interimHigh = Math.round(interimHigh*10)/10;
+            
             this.setState({
-                briefWeather : {
-                    icon : icon
+                    briefWeather : {
+                    icon : icon,
+                    lowTemp : interimLow,
+                    highTemp : interimHigh
                 }
             })
         }
@@ -58,7 +77,7 @@ export default class DayWeather extends React.Component{
     render(){
         return(
             <button className="btn Card p-0" onClick={()=>{this.handleChange()}}>
-                <StringDay day={this.state.today}/>
+                <StringDay day={this.state.today.getDay()+this.state.weatherIndex}/>
                 <WeatherImage weather={this.state.briefWeather.icon} />
                 <Temperature
                     lowTemp={this.state.briefWeather.lowTemp}

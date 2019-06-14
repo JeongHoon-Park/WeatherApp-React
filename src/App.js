@@ -17,7 +17,7 @@ class App extends React.Component {
     super(props);
 
     this.state= {
-      today: todayDate.getDay(),
+      today: todayDate,
       loc: {
         city: 'Busan',
         gu: 'Buk',
@@ -25,7 +25,7 @@ class App extends React.Component {
       },
       isLoaded : false,
       OrgWeatherGraph: '',
-      WeatherIcon : '',
+      BriefWeather : '',
       weatherIndex : 0
       //lifting 에 사용되는 핵심 state
     }
@@ -53,13 +53,18 @@ class App extends React.Component {
 
     for (let i=0; i<40; i++){
       iconArr.push({
-        icon : GetWeather.data.list[i].weather[0].id
+        icon : GetWeather.data.list[i].weather[0].id,
+        briefTemp : {
+          temp_min : GetWeather.data.list[i].main.temp_min,
+          temp_max : GetWeather.data.list[i].main.temp_max
+        },
+        time : GetWeather.data.list[i].dt_txt
       })
     }
  
     this.setState({
       OrgWeatherGraph : interimArr,
-      WeatherIcon : iconArr
+      BriefWeather : iconArr
     })
   }
 
@@ -89,14 +94,14 @@ class App extends React.Component {
   render() {
     return (
       <div className="Weather">
-        <RenderInf day={(this.state.today+this.state.weatherIndex)%7} loc={this.state.loc} />
-        <Graph weather={this.state.OrgWeatherGraph} date={this.state.graphDay}/>
+        <RenderInf day={(this.state.today.getDay()+this.state.weatherIndex)%7} loc={this.state.loc} />
+        <Graph weather={this.state.OrgWeatherGraph}/>
         <div className="d-flex flex-row mb-3">
-          <DayWeather date={this.state.today} add={0} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
-          <DayWeather date={(this.state.today + 1) % 7} add={1} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
-          <DayWeather date={(this.state.today + 2) % 7} add={2} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
-          <DayWeather date={(this.state.today + 3) % 7} add={3} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
-          <DayWeather date={(this.state.today + 4) % 7} add={4} lifting={this.weatherIndexUpdate} iconArr={this.state.WeatherIcon}/>
+          <DayWeather date={this.state.today} add={0} lifting={this.weatherIndexUpdate} iconArr={this.state.BriefWeather}/>
+          <DayWeather date={this.state.today} add={1} lifting={this.weatherIndexUpdate} iconArr={this.state.BriefWeather}/>
+          <DayWeather date={this.state.today} add={2} lifting={this.weatherIndexUpdate} iconArr={this.state.BriefWeather}/>
+          <DayWeather date={this.state.today} add={3} lifting={this.weatherIndexUpdate} iconArr={this.state.BriefWeather}/>
+          <DayWeather date={this.state.today} add={4} lifting={this.weatherIndexUpdate} iconArr={this.state.BriefWeather}/>
         </div>
       </div>
 

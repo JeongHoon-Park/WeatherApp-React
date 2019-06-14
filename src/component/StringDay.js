@@ -2,7 +2,7 @@ import React from 'react';
 
 const StringDay = (props) => {
 
-    const dayNumber = props.day;
+    const dayNumber = (props.day)%7;
     let stringDay = undefined;
 
     switch(dayNumber){

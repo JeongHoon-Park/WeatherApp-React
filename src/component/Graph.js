@@ -58,7 +58,7 @@ export default class LineChart extends React.Component{
     
     componentDidUpdate(prevProps){
         if(this.props.weather !== prevProps.weather){
-            console.log("Graph Comonent Update");
+            
             //그래프에 들어갈 온도 배열
             let tempArr = [
                 "temperature",
@@ -74,16 +74,17 @@ export default class LineChart extends React.Component{
 
             //그래프에 들어갈 x축 시간
             let timeSortArr = [
-                (parseInt(this.props.weather[0].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[1].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[2].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[3].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[4].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[5].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[6].time.substring(11, 13))+9)%24,
-                (parseInt(this.props.weather[7].time.substring(11, 13))+9)%24
-            ];
+                `${((parseInt(this.props.weather[0].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[1].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[2].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[3].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[4].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[5].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[6].time.substring(11, 13))+9)%24).toString()}:00H`,
+                `${((parseInt(this.props.weather[7].time.substring(11, 13))+9)%24).toString()}:00H`,
+             ];
 
+            console.log("timeSortArr"+timeSortArr);
             
             this.setState({
                 CHART_DATA : {
@@ -96,24 +97,19 @@ export default class LineChart extends React.Component{
                 AXIS : {
                     x: {
                         type: "category",
-                        categories : [   
-                            `${timeSortArr[0].toString()}:00H`,
-                            `${timeSortArr[1].toString()}:00H`,
-                            `${timeSortArr[2].toString()}:00H`,
-                            `${timeSortArr[3].toString()}:00H`,
-                            `${timeSortArr[4].toString()}:00H`,
-                            `${timeSortArr[5].toString()}:00H`,
-                            `${timeSortArr[6].toString()}:00H`,
-                            `${timeSortArr[7].toString()}:00H`,
-                        ]
+                        categories : timeSortArr
+                    },
+                    y: {
+                        show : false
                     }
                 } 
             });
+
+            console.log("Graph Component Update"+this.state.AXIS.x.categories);
         }
     }
 
     render(){
-        console.log("Graph Rendering"+this.state.AXIS);
         return(
             <BillboardChart
                 data={this.state.CHART_DATA}
