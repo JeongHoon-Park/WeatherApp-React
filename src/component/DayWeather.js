@@ -19,7 +19,6 @@ export default class DayWeather extends React.Component{
             }
         }
         
-        console.log("type of today"+typeof(props.date));
         this.handleChange = this.handleChange.bind(this);
     }
 

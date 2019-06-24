@@ -20,8 +20,7 @@ class App extends React.Component {
       today: todayDate,
       loc: {
         city: 'Busan',
-        gu: 'Buk',
-        dong: 'Deokcheon'
+        do : ''
       },
       isLoaded : false,
       OrgWeatherGraph: '',
@@ -94,6 +93,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="Weather">
+        
         <RenderInf day={(this.state.today.getDay()+this.state.weatherIndex)%7} loc={this.state.loc} />
         <Graph weather={this.state.OrgWeatherGraph}/>
         <div className="d-flex flex-row mb-3">

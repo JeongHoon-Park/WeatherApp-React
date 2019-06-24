@@ -8,10 +8,6 @@ export default class LineChart extends React.Component{
 
         this.state ={
 
-            REFINED_Weather : [
-                
-            ],
-
             CHART_DATA : {
                 columns : 
                 [
@@ -83,8 +79,6 @@ export default class LineChart extends React.Component{
                 `${((parseInt(this.props.weather[6].time.substring(11, 13))+9)%24).toString()}:00H`,
                 `${((parseInt(this.props.weather[7].time.substring(11, 13))+9)%24).toString()}:00H`,
              ];
-
-            console.log("timeSortArr"+timeSortArr);
             
             this.setState({
                 CHART_DATA : {
