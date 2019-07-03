@@ -6,6 +6,7 @@ import './css/bootstrap.min.css';
 import DayWeather from './component/DayWeather';
 import RenderInf from './component/RenderInf.js';
 import Graph from './component/Graph.js';
+import SelectCity from './component/SelectCity.js';
 
 const todayDate = new Date();
 const WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json&units=metric";
@@ -67,7 +68,7 @@ class App extends React.Component {
     })
   }
 
-    async weatherIndexUpdate(value){
+  async weatherIndexUpdate(value){
 
       const GetWeather = await axios.get(WeatherEndPoint);
       let interimArr = [];
@@ -83,8 +84,21 @@ class App extends React.Component {
         weatherIndex : value,
         OrgWeatherGraph : interimArr
       })
-    }
+  }
 
+  selectCityChange = (e) => {
+    
+    //console.log("Lifting City Id"+cityId);
+    console.log("lifting state up"+e.target.value);
+    
+
+    this.setState({
+      loc : {
+        city : e.target.value,
+        do : ""
+      }
+    })
+  }
   /*
     Weather Index -
     sun : 0   cloudSun : 1  cloud : 2
@@ -93,7 +107,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="Weather">
-        
+        <SelectCity liftMethod={this.selectCityChange}/>
         <RenderInf day={(this.state.today.getDay()+this.state.weatherIndex)%7} loc={this.state.loc} />
         <Graph weather={this.state.OrgWeatherGraph}/>
         <div className="d-flex flex-row mb-3">
