@@ -9,7 +9,7 @@ import Graph from './component/Graph.js';
 import SelectCity from './component/SelectCity.js';
 
 const todayDate = new Date();
-const WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json&units=metric";
+let WeatherEndPoint = "http://api.openweathermap.org/data/2.5/forecast?q=Busan&appid=a594163e935529806653dee91061ca47&mode=json&units=metric";
 //이 주소로 json 데이터 요청함
 
 class App extends React.Component {
@@ -28,7 +28,7 @@ class App extends React.Component {
       BriefWeather : '',
       weatherIndex : 0,
       //lifting 에 사용되는 핵심 state
-      cityId : ''
+      cityId : 'Busan'
     }
     
     this.weatherIndexUpdate = this.weatherIndexUpdate.bind(this);
@@ -36,7 +36,6 @@ class App extends React.Component {
 
   async componentDidMount(){
 
-    console.log("Component Did Mount");
     const GetWeather  = await axios.get(WeatherEndPoint);
 
     let interimArr = []
@@ -62,14 +61,55 @@ class App extends React.Component {
         time : GetWeather.data.list[i].dt_txt
       })
     }
- 
+    
+    console.log("App.js : Component Did Mount");
     this.setState({
       OrgWeatherGraph : interimArr,
       BriefWeather : iconArr
     })
   }
 
-  async weatherIndexUpdate(value){
+  async componentDidUpdate(prevState){
+    if(prevState.cityId !== this.state.cityId){
+      
+      console.log("App.js : Component Did Update");
+      WeatherEndPoint = `http://api.openweathermap.org/data/2.5/forecast?q=${this.state.cityId}&appid=a594163e935529806653dee91061ca47&mode=json&units=metric`;
+
+      const GetWeather  = await axios.get(WeatherEndPoint);
+
+      let interimArr = []
+      let iconArr = []
+  
+      for(let i=this.state.weatherIndex*8; i<(this.state.weatherIndex+1)*8; i++){
+        interimArr.push(
+          {
+            temperature : GetWeather.data.list[i].main.temp,
+            time : GetWeather.data.list[i].dt_txt,
+            //icon : GetWeather.data.list[i].weather.id
+          }
+        )
+      }
+  
+      for (let i=0; i<40; i++){
+        iconArr.push({
+          icon : GetWeather.data.list[i].weather[0].id,
+          briefTemp : {
+            temp_min : GetWeather.data.list[i].main.temp_min,
+            temp_max : GetWeather.data.list[i].main.temp_max
+          },
+          time : GetWeather.data.list[i].dt_txt
+        })
+      }
+      
+      
+      this.setState({
+        OrgWeatherGraph : interimArr,
+        BriefWeather : iconArr
+      })
+    }
+  }
+
+  async weatherIndexUpdate(value){ //Day Weather prop로 넘겨주는 메서드
 
       const GetWeather = await axios.get(WeatherEndPoint);
       let interimArr = [];
@@ -81,15 +121,17 @@ class App extends React.Component {
         })
       }
 
+      console.log("Prop Method For Day Weather");
+
       this.setState({
         weatherIndex : value,
         OrgWeatherGraph : interimArr
       })
   }
 
-  selectCityChange = (element, cityId) => {
+  selectCityChange = (element, cityId) => { // Select City prop로 넘겨주는 메서드
     
-    //console.log("Lifting City Id"+cityId);
+    console.log("Prop Method For Select City");
     this.setState({
       loc : {
         city : element.target.value,

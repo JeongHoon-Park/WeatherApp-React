@@ -55,6 +55,7 @@ export default class LineChart extends React.Component{
     componentDidUpdate(prevProps){
         if(this.props.weather !== prevProps.weather){
             
+            console.log("Graph.js : Component Did update");
             //그래프에 들어갈 온도 배열
             let tempArr = [
                 "temperature",
@@ -98,8 +99,6 @@ export default class LineChart extends React.Component{
                     }
                 } 
             });
-
-            console.log("Graph Component Update"+this.state.AXIS.x.categories);
         }
     }
 
