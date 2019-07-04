@@ -26,8 +26,9 @@ class App extends React.Component {
       isLoaded : false,
       OrgWeatherGraph: '',
       BriefWeather : '',
-      weatherIndex : 0
+      weatherIndex : 0,
       //lifting 에 사용되는 핵심 state
+      cityId : ''
     }
     
     this.weatherIndexUpdate = this.weatherIndexUpdate.bind(this);
@@ -86,17 +87,15 @@ class App extends React.Component {
       })
   }
 
-  selectCityChange = (e) => {
+  selectCityChange = (element, cityId) => {
     
     //console.log("Lifting City Id"+cityId);
-    console.log("lifting state up"+e.target.value);
-    
-
     this.setState({
       loc : {
-        city : e.target.value,
+        city : element.target.value,
         do : ""
-      }
+      },
+      cityId : cityId
     })
   }
   /*

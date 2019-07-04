@@ -34,11 +34,16 @@ export default class SelectCity extends React.Component{
         }
     }
 
+    handleChange = (e) => {
+        let cityValue = document.selectForm.loc.value;
+        this.props.liftMethod(e, this.state[cityValue][e.target.value]);
+    }
+
     render(){
         return(
             <div>
                 <form name="selectForm" className="d-flex mb-2 mt-3">
-                    <select className="custom-select" onChange={this.selectLocChange}>
+                    <select className="custom-select" name="loc" onChange={this.selectLocChange}>
                         <option value="Default">지역</option>
                         <option value="SI">서울/인천</option>
                         <option value="GN">경기도 남부</option>
@@ -53,7 +58,7 @@ export default class SelectCity extends React.Component{
                         <option value="JJ">제주</option>
                     </select>
                 
-                    <select className="custom-select" name="city" onChange={this.props.liftMethod}>
+                    <select className="custom-select" name="city" onChange={this.handleChange}>
                         <option vlaue="Default">도시</option>
                     </select>
 
