@@ -53,9 +53,8 @@ export default class LineChart extends React.Component{
     // 이 부분 프로퍼티 받아서 바로 처리해버리
     
     componentDidUpdate(prevProps){
-        if(this.props.weather !== prevProps.weather){
+        if(this.props.weather[0] !== prevProps.weather[0]){
             
-            console.log("Graph.js : Component Did update");
             //그래프에 들어갈 온도 배열
             let tempArr = [
                 "temperature",

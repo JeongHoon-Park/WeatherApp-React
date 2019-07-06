@@ -25,7 +25,6 @@ export default class DayWeather extends React.Component{
     componentDidUpdate(prevProps){
         if(prevProps.iconArr!== this.props.iconArr){
             
-            console.log("DayWeather.js : Compoent Did Update");
             let icon = this.props.iconArr[(this.props.add*8)].icon;
             let interimLow = 50;
             let interimHigh = 0;

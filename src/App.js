@@ -62,17 +62,15 @@ class App extends React.Component {
       })
     }
     
-    console.log("App.js : Component Did Mount");
     this.setState({
       OrgWeatherGraph : interimArr,
       BriefWeather : iconArr
     })
   }
 
-  async componentDidUpdate(prevState){
+  async componentDidUpdate(prevProps, prevState){
     if(prevState.cityId !== this.state.cityId){
       
-      console.log("App.js : Component Did Update");
       WeatherEndPoint = `http://api.openweathermap.org/data/2.5/forecast?q=${this.state.cityId}&appid=a594163e935529806653dee91061ca47&mode=json&units=metric`;
 
       const GetWeather  = await axios.get(WeatherEndPoint);
@@ -121,8 +119,6 @@ class App extends React.Component {
         })
       }
 
-      console.log("Prop Method For Day Weather");
-
       this.setState({
         weatherIndex : value,
         OrgWeatherGraph : interimArr
@@ -131,7 +127,6 @@ class App extends React.Component {
 
   selectCityChange = (element, cityId) => { // Select City prop로 넘겨주는 메서드
     
-    console.log("Prop Method For Select City");
     this.setState({
       loc : {
         city : element.target.value,
