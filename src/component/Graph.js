@@ -55,6 +55,7 @@ export default class LineChart extends React.Component{
     componentDidUpdate(prevProps){
         if(this.props.weather[0] !== prevProps.weather[0]){
             
+            console.log("Graph.js : Component Did Update");
             //그래프에 들어갈 온도 배열
             let tempArr = [
                 "temperature",
@@ -80,6 +81,7 @@ export default class LineChart extends React.Component{
                 `${((parseInt(this.props.weather[7].time.substring(11, 13))+9)%24).toString()}:00H`,
              ];
             
+            console.log("TimeSortArr : " + timeSortArr);
             this.setState({
                 CHART_DATA : {
                     columns : 
@@ -91,13 +93,23 @@ export default class LineChart extends React.Component{
                 AXIS : {
                     x: {
                         type: "category",
-                        categories : timeSortArr
+                        categories : [
+                            timeSortArr[0],
+                            timeSortArr[1],
+                            timeSortArr[2],
+                            timeSortArr[3],
+                            timeSortArr[4],
+                            timeSortArr[5],
+                            timeSortArr[6],
+                            timeSortArr[7]
+                        ]
                     },
                     y: {
                         show : false
                     }
                 } 
             });
+
         }
     }
 
