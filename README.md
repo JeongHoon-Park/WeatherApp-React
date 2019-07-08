@@ -11,7 +11,8 @@ Go to the directory where you saved the project and run the 'npm start' command.
 Open 'localhost:3000' to view it in the browser.
      
 ### Preview    
-![미리보기](./src/img/preview.gif)
+![preview gif](https://user-images.githubusercontent.com/26667992/60814366-759cf180-a1d0-11e9-8e54-ac3b1d99a7d1.gif)
+
 
 ### Inspired  
 * 6 Fun React Project You Can Build Today  
