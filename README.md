@@ -11,7 +11,7 @@ Go to the directory where you saved the project and run the 'npm start' command.
 Open 'localhost:3000' to view it in the browser.
      
 ### Preview    
-![미리보기](./weatherapp-react/src/img/preview.gif)
+![미리보기](./src/img/preview.gif)
 
 ### Inspired  
 * 6 Fun React Project You Can Build Today  
